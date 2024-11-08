@@ -31,4 +31,7 @@ jobs:
           aws-region: ${{ secrets.AWS_REGION_NON_PROD }}
 
       - name: CDK Deploy Non-Prod Stack
+        env:
+          CDK_DEFAULT_ACCOUNT: ${{ secrets.AWS_ACCOUNT_ID_NON_PROD }}
+          CDK_DEFAULT_REGION: ${{ secrets.AWS_REGION_NON_PROD }}
         run: cdk deploy devGENIEGenAIChatBotStack --require-approval never
