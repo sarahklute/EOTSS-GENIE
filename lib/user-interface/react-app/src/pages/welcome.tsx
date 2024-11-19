@@ -49,7 +49,7 @@ export default function Welcome({theme}) {
                                     iconAlign="right"
                                     iconName="contact"
                                     variant="primary"
-                                    href="/chatbot/playground"
+                                    href="/chatbot/documentation/doc"
                                 >
                                     Getting Started
                                 </RouterButton>
