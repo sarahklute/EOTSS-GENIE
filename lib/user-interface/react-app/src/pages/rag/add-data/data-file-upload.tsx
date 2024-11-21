@@ -6,6 +6,7 @@ import {
   FlashbarProps,
   Form,
   FormField,
+  Modal,
   ProgressBar,
   ProgressBarProps,
   SpaceBetween,
@@ -62,6 +63,8 @@ export default function DataFileUpload(props: DataFileUploadProps) {
   const [currentFileName, setCurrentFileName] = useState<string>("");
   const [uploadPanelDismissed, setUploadPanelDismissed] =
     useState<boolean>(false);
+  const [showModal, setShowModal] = useState<boolean>(false);
+  const [isSyncing, setIsSyncing] = useState<boolean>(false);
 
   const onSetFiles = (files: File[]) => {
     const errors: string[] = [];
@@ -150,6 +153,22 @@ export default function DataFileUpload(props: DataFileUploadProps) {
       setUploadingStatus("success");
       setFilesToUpload([]);
       setFiles([]);
+      setShowModal(true); // Show modal after successful upload
+    }
+  };
+
+  const startKendraSync = async () => {
+    if (!appContext || !props.data.workspace?.value) return;
+
+    setIsSyncing(true); // Indicate that syncing is in progress
+    try {
+      const apiClient = new ApiClient(appContext);
+      await apiClient.kendra.startKendraDataSync(props.data.workspace?.value);
+      console.log("Kendra Data Sync started.");
+    } catch (error) {
+      console.error("Error starting Kendra Data Sync:", error);
+    } finally {
+      setIsSyncing(false); // Reset syncing state
     }
   };
 
@@ -191,15 +210,6 @@ export default function DataFileUpload(props: DataFileUploadProps) {
               <FileUpload
                 onChange={({ detail }) => onSetFiles(detail.value)}
                 value={files}
-                i18nStrings={{
-                  uploadButtonText: (e) => (e ? "Choose files" : "Choose file"),
-                  dropzoneText: (e) =>
-                    e ? "Drop files to upload" : "Drop file to upload",
-                  removeFileAriaLabel: (e) => `Remove file ${e + 1}`,
-                  limitShowFewer: "Show fewer files",
-                  limitShowMore: "Show more files",
-                  errorIconAriaLabel: "Error",
-                }}
                 multiple
                 showFileLastModified
                 showFileSize
@@ -210,10 +220,42 @@ export default function DataFileUpload(props: DataFileUploadProps) {
                 ).join(", ")})`}
                 fileErrors={fileErrors}
                 errorText={uploadError}
+                i18nStrings={{
+                  uploadButtonText: (fileCount) =>
+                    fileCount ? "Choose files" : "Choose file",
+                  dropzoneText: (fileCount) =>
+                    fileCount ? "Drop files to upload" : "Drop file to upload",
+                  removeFileAriaLabel: (index) => `Remove file ${index + 1}`,
+                  limitShowFewer: "Show fewer files",
+                  limitShowMore: "Show more files",
+                  errorIconAriaLabel: "Error",
+                }}
               />
             </FormField>
           </SpaceBetween>
         </Container>
+        {showModal && (
+          <Modal
+            onDismiss={() => setShowModal(false)}
+            visible={showModal}
+            header="Kendra Data Sync"
+            footer={
+              <SpaceBetween direction="horizontal" size="xs">
+                <Button onClick={() => setShowModal(false)}>Close</Button>
+                <Button
+                  variant="primary"
+                  onClick={startKendraSync}
+                  disabled={isSyncing}
+                >
+                  {isSyncing ? "Syncing..." : "Start Sync"}
+                </Button>
+              </SpaceBetween>
+            }
+          >
+            Do you wish to start a Kendra data sync now? You can close this
+            popup while the sync continues in the background.
+          </Modal>
+        )}
         {uploadingStatus !== "info" && !uploadPanelDismissed && (
           <Flashbar
             items={[
