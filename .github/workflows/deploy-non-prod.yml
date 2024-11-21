@@ -5,6 +5,10 @@ on:
     branches:
       - non-prod # Triggers on pushes to the non-prod branch
 
+permissions:
+  id-token: write
+  contents: read
+
 jobs:
   deploy:
     runs-on: ubuntu-latest
@@ -30,3 +34,9 @@ jobs:
           role-to-assume: arn:aws:iam::908027381379:role/eotss-genie-deployment-role
           aws-region: us-east-1
           role-session-name: ${{ github.actor }}
+
+      - name: Debug AWS Authentication
+        run: aws sts get-caller-identity
+
+      - name: Deploy CDK Stack
+        run: cdk deploy --all --require-approval never
