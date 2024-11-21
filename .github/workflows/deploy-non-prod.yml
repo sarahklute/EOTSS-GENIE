@@ -24,19 +24,6 @@ jobs:
           npm install
 
       - name: Configure AWS Credentials
-        uses: aws-actions/configure-aws-credentials@v2
-        with:
-          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID_NON_PROD }}
-          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY_NON_PROD }}
-          aws-region: ${{ secrets.AWS_REGION_NON_PROD }}
-
-      - name: CDK Deploy Non-Prod Stack
-        env:
-          CDK_DEFAULT_ACCOUNT: ${{ secrets.AWS_ACCOUNT_ID_NON_PROD }}
-          CDK_DEFAULT_REGION: ${{ secrets.AWS_REGION_NON_PROD }}
-        run: cdk deploy devGENIEGenAIChatBotStack --require-approval never
-
-      - name: Configure AWS Credentials
         uses: aws-actions/configure-aws-credentials@v3
         with:
           role-duration-seconds: 3600
