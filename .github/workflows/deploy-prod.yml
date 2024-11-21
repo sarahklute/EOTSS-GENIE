@@ -1,9 +1,13 @@
-name: Deploy Non-Prod Stack
+name: Deploy Prod Stack
 
 on:
   push:
     branches:
-      - prod # Triggers on pushes to the non-prod branch
+      - prod # Triggers on pushes to the prod branch
+
+permissions:
+  id-token: write
+  contents: read
 
 jobs:
   deploy:
@@ -30,3 +34,9 @@ jobs:
           role-to-assume: arn:aws:iam::084828559398:role/genie-deployment-role-prod
           aws-region: us-east-1
           role-session-name: ${{ github.actor }}
+
+      - name: Debug AWS Authentication
+        run: aws sts get-caller-identity
+
+      - name: Deploy CDK Stack
+        run: cdk deploy --all --require-approval never
