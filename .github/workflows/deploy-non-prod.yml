@@ -35,3 +35,11 @@ jobs:
           CDK_DEFAULT_ACCOUNT: ${{ secrets.AWS_ACCOUNT_ID_NON_PROD }}
           CDK_DEFAULT_REGION: ${{ secrets.AWS_REGION_NON_PROD }}
         run: cdk deploy devGENIEGenAIChatBotStack --require-approval never
+
+      - name: Configure AWS Credentials
+        uses: aws-actions/configure-aws-credentials@v3
+        with:
+          role-duration-seconds: 3600
+          role-to-assume: arn:aws:iam::908027381379:role/eotss-genie-deployment-role
+          aws-region: us-east-1
+          role-session-name: ${{ github.actor }}
