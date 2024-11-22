@@ -29,7 +29,7 @@ export default function AppConfigured() {
         const result = await fetch("/aws-exports.json");
         const awsExports = await result.json();
         // start removing here
-        delete awsExports['aws_cognito_identity_pool_id'] //SARAH - ALL THIS NEEDS TO CHANGE 
+        delete awsExports['aws_cognito_identity_pool_id']
         delete awsExports['aws_user_pools_id']
         delete awsExports['aws_user_pools_web_client_id']
         awsExports["Auth"] = {
@@ -39,7 +39,7 @@ export default function AppConfigured() {
     "oauth": {
       "domain": "sandbox-mass-gov.auth.us-east-1.amazoncognito.com",
       "scope": ["email", "openid", "profile"],
-      "redirectSignIn": "https://dr7l4jtkt9o67.cloudfront.net/", //changet his for new deployment link 
+      "redirectSignIn": "https://dr7l4jtkt9o67.cloudfront.net/",
       "redirectSignOut": "https://myapplications.microsoft.com/",
       "responseType": "code"
     }};
