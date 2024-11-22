@@ -1,4 +1,4 @@
-name: Deploy Non-Prod Stack
+name: Deploy Prod Stack
 
 on:
   push:
