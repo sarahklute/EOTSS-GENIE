@@ -20,7 +20,7 @@ export default function AppConfigured() {
   const [configured, setConfigured] = useState<boolean>(false);  
 
   // this is the authentication provider that Cognito needs
-  const federatedIdName : string = "AzureAD-OIDC-MassGov";
+  const federatedIdName : string = "AzureAD-OIDC-Prod-GENIE";
 
   // trigger authentication state when needed
   useEffect(() => {
@@ -34,13 +34,13 @@ export default function AppConfigured() {
         delete awsExports['aws_user_pools_web_client_id']
         awsExports["Auth"] = {
     "region": "us-east-1",
-    "userPoolId": "us-east-1_BHned34tF",
-    "userPoolWebClientId": "4plddm493u4jcei3ucq0o5pbdv",
+    "userPoolId": "us-east-1_LX9ZnsM6h",
+    "userPoolWebClientId": "3nr3r1qtocclc95jrhuq4qe22r",
     "oauth": {
-      "domain": "sandbox-mass-gov.auth.us-east-1.amazoncognito.com",
+      "domain": "prod-genie.auth.us-east-1.amazoncognito.com",
       "scope": ["email", "openid", "profile"],
-      "redirectSignIn": "https://dr7l4jtkt9o67.cloudfront.net/",
-      "redirectSignOut": "https://myapplications.microsoft.com/",
+      "redirectSignIn": " https://d34zoiv84m8ivb.cloudfront.net/",
+      "redirectSignOut": "https://myapplications.microsoft.com/?tenantid=3e861d16-48b7-4a0e-9806-8c04d81b7b2a/",
       "responseType": "code"
     }};
     // end removing here
