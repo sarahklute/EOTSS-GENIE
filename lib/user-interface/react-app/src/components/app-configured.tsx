@@ -39,7 +39,7 @@ export default function AppConfigured() {
     "oauth": {
       "domain": "prod-genie.auth.us-east-1.amazoncognito.com",
       "scope": ["email", "openid", "profile"],
-      "redirectSignIn": " https://d34zoiv84m8ivb.cloudfront.net/",
+      "redirectSignIn": "https://d34zoiv84m8ivb.cloudfront.net/",
       "redirectSignOut": "https://myapplications.microsoft.com/?tenantid=3e861d16-48b7-4a0e-9806-8c04d81b7b2a/",
       "responseType": "code"
     }};
