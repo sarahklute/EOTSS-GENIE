@@ -360,13 +360,13 @@ export default function ChatMessage(props: ChatMessageProps) {
                 </>
             )}
 
-            {props.message?.type === ChatBotMessageType.Human && (
+            {/* {props.message?.type === ChatBotMessageType.Human && (
                 <div className={styles.chat_message_container}>
                     <div className={styles.input_message}>
                         {getContentUpToForMore(props.message.content)}
                     </div>
                 </div>
-            )}
+            )} */}
         </div>
     );
 }

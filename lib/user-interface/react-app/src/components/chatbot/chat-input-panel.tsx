@@ -94,7 +94,7 @@ export default function ChatInputPanel(props: ChatInputPanelProps) {
   const {needsRefresh, setNeedsRefresh} = useContext(SessionRefreshContext);
   const { transcript, listening, browserSupportsSpeechRecognition } =
     useSpeechRecognition();
-  const [state, setState] = useState<ChatInputState>({
+  const [state, setState] = useState<ChatInputState>({ //how we update the vairable ins tate management 
     taskName: null,
     // have it so the value of the input is either the primer or mt string
     // value:  " ", CHANGE HERE IF YOU MESS IT UP
@@ -102,7 +102,7 @@ export default function ChatInputPanel(props: ChatInputPanelProps) {
     value: " ",
     selectedModel: null,
     selectedModelMetadata: null,
-    selectedWorkspace: workspaceDefaultOptions[0],
+    selectedWorkspace: workspaceDefaultOptions[0], //variable for workspace - update the state of the selected workspace 
     modelsStatus: "loading",
     workspacesStatus: "loading",
   });
@@ -197,7 +197,7 @@ const checkWorkspaceExists = async (name: string): Promise<boolean> => {
      count++;
      uniqueName = `${baseName}-${count}`;
    }
-   return uniqueName;
+   return uniqueName; // set the state to the new workspace created and set that as the workspace within the chat 
  };
  // SARAH doc upload
  const handleUploadDocument = async () => {
@@ -599,58 +599,49 @@ const checkWorkspaceExists = async (name: string): Promise<boolean> => {
     ...OptionsHelper.getSelectOptions(state.workspaces ?? []),
   ];
 
+  const [tooltipVisible, setTooltipVisible] = useState(false);
+
   return (
     <SpaceBetween direction="vertical" size="l">
       <Container>
-        <div className={styles.input_textarea_container}>
-          <SpaceBetween size="xxs" direction="horizontal" alignItems="center">
-            {browserSupportsSpeechRecognition ? (
-              <Button
-                iconName={listening ? "microphone-off" : "microphone"}
-                variant="icon"
-                onClick={() =>
-                  listening
-                    ? SpeechRecognition.stopListening()
-                    : SpeechRecognition.startListening()
-                }
-              />
-            ) : (
-              <Icon name="microphone-off" variant="disabled" />
+        <div className={styles.input_textarea_container} style={{ position: "relative" }}>
+          {/* SARAH doc upload with Tooltip */}
+          <div
+            style={{ position: "relative", display: "inline-block" }}
+            onMouseEnter={() => setTooltipVisible(true)} // Hover logic on wrapper
+            onMouseLeave={() => setTooltipVisible(false)} // Hide logic on wrapper
+          >
+            <Button
+              onClick={handleUploadDocument}
+              variant="icon"
+              iconName="file" // Valid Cloudscape icon but removing the text
+              ariaLabel="Upload Document"
+            />
+            {/* Tooltip */}
+            {tooltipVisible && (
+              <div
+                style={{
+                  position: "absolute",
+                  bottom: "calc(100% + 8px)", // Position above the button
+                  left: "50%",
+                  transform: "translateX(-50%)",
+                  backgroundColor: "#0950a2", // Blue background
+                  color: "#fff", // White text for contrast
+                  fontSize: "12px",
+                  padding: "6px 12px", // Adjust padding for better appearance
+                  borderRadius: "12px", // Rounded corners
+                  whiteSpace: "nowrap",
+                  zIndex: 10,
+                  boxShadow: "0 2px 4px rgba(0, 0, 0, 0.2)", // Subtle shadow for depth
+                }}
+              >
+                Upload Document
+              </div>
             )}
-            {state.selectedModelMetadata?.inputModalities.includes(
-              ChabotInputModality.Image
-            ) && (
-              <Button
-                variant="icon"
-                onClick={() => setImageDialogVisible(true)}
-                iconSvg={
-                  <svg viewBox="0 0 22 22" xmlns="http://www.w3.org/2000/svg">
-                    <rect
-                      x="2"
-                      y="2"
-                      width="19"
-                      height="19"
-                      rx="2"
-                      ry="2"
-                    ></rect>
-                    <circle cx="8.5" cy="8.5" r="1.5"></circle>
-                    <polyline points="21 15 16 10 5 21"></polyline>
-                  </svg>
-                }
-              ></Button>
-            )}
-          </SpaceBetween>
-          <ImageDialog
-            sessionId={props.session.id}
-            visible={imageDialogVisible}
-            setVisible={setImageDialogVisible}
-            configuration={props.configuration}
-            setConfiguration={props.setConfiguration}
-          />
+          </div>
           <TextareaAutosize
             className={styles.input_textarea}
-            value={state.value} // added here so the value in the component is bound to state
-            // readOnly={isReadOnly}
+            value={state.value} // Keep the text input functionality
             maxRows={6}
             minRows={1}
             spellCheck={true}
@@ -659,12 +650,12 @@ const checkWorkspaceExists = async (name: string): Promise<boolean> => {
               setState((state) => ({ ...state, value: e.target.value }))
             }
             onKeyDown={(e) => {
-              if (e.key == "Enter" && !e.shiftKey) {
+              if (e.key === "Enter" && !e.shiftKey) {
                 e.preventDefault();
                 handleSendMessage();
               }
             }}
-            placeholder={listening ? "Listening..." : "Send a message"}
+            placeholder="Type a message"
           />
           <div style={{ marginLeft: "8px" }}>
             {state.selectedModelMetadata?.inputModalities.includes(
@@ -685,6 +676,7 @@ const checkWorkspaceExists = async (name: string): Promise<boolean> => {
                   }}
                 />
               ))}
+            {/* Send Button */}
             <Button
               disabled={
                 readyState !== ReadyState.OPEN ||
@@ -722,13 +714,13 @@ const checkWorkspaceExists = async (name: string): Promise<boolean> => {
           <Select
             disabled={props.running}
             statusType={state.modelsStatus}
-            loadingText="Loading models (might take few seconds)..."
+            loadingText="Loading models (might take a few seconds)..."
             placeholder="Select a model"
             empty={
               <div>
                 No models available. Please make sure you have access to Amazon
-                Bedrock or alternatively deploy a self hosted model on SageMaker
-                or add API_KEY to Secrets Manager
+                Bedrock or alternatively deploy a self-hosted model on SageMaker
+                or add API_KEY to Secrets Manager.
               </div>
             }
             filteringType="auto"
@@ -753,7 +745,7 @@ const checkWorkspaceExists = async (name: string): Promise<boolean> => {
               disabled={
                 props.running || !state.selectedModelMetadata?.ragSupported
               }
-              loadingText="Loading workspaces (might take few seconds)..."
+              loadingText="Loading workspaces (might take a few seconds)..."
               statusType={state.workspacesStatus}
               placeholder="Select a workspace (RAG data source)"
               filteringType="auto"
@@ -792,16 +784,7 @@ const checkWorkspaceExists = async (name: string): Promise<boolean> => {
                 onClick={() => setConfigDialogVisible(true)}
               />
             </div>
-  
-            {/* SARAH New Upload Document Button */}
-            <Button
-              onClick={handleUploadDocument}
-              variant="primary"
-              iconName="upload"
-            >
-              Upload Document
-            </Button>
-  
+    
             <StatusIndicator
               type={
                 readyState === ReadyState.OPEN
@@ -819,7 +802,7 @@ const checkWorkspaceExists = async (name: string): Promise<boolean> => {
       </div>
     </SpaceBetween>
   );
-}
+}  
 
 function getSelectedWorkspaceOption(
   workspaces: Workspace[]
