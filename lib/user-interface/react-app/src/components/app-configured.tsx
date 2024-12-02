@@ -40,7 +40,7 @@ export default function AppConfigured() {
       "domain": "prod-genie.auth.us-east-1.amazoncognito.com",
       "scope": ["email", "openid", "profile"],
       "redirectSignIn": "https://d34zoiv84m8ivb.cloudfront.net/",
-      "redirectSignOut": "https://login.microsoftonline.com/3e861d16-48b7-4a0e-9806-8c04d81b7b2a/oauth2/v2.0/authorize?client_id=e8832ead-7ca3-48d0-8b40-8d29c6c4e03d&redirect_uri=https%3A%2F%2Fprod-genie.auth.us-east-1.amazoncognito.com%2Foauth2%2Fidpresponse&scope=openid&response_type=code&sso_reload=true",
+      "redirectSignOut": "https://login.microsoftonline.com/3e861d16-48b7-4a0e-9806-8c04d81b7b2a/oauth2/v2.0/logout?redirect_uri=https://dr7l4jtkt9o67.cloudfront.net/",
       "responseType": "code"
     }};
     // end removing here
