@@ -5,6 +5,10 @@ on:
     branches:
       - prod # Triggers on pushes to the non-prod branch
 
+permissions:
+  id-token: write
+  contents: read
+
 jobs:
   deploy:
     runs-on: ubuntu-latest
@@ -16,7 +20,7 @@ jobs:
       - name: Set up Node.js
         uses: actions/setup-node@v2
         with:
-          node-version: "18" # Use the appropriate Node.js version for your project
+          node-version: "18" # Use the appropriate Node.js version for your project !!!
 
       - name: Install dependencies
         run: |
@@ -31,3 +35,11 @@ jobs:
           role-to-assume: arn:aws:iam::084828559398:role/genie-deployment-role-prod
           aws-region: us-east-1
           role-session-name: ${{ github.actor }}
+
+      - name: Debug AWS Authentication
+        run: aws sts get-caller-identity
+
+      - name: Deploy CDK Stack
+        run: |
+          cdk bootstrap
+          cdk deploy --all --require-approval never

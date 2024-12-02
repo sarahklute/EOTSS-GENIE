@@ -1,74 +1,151 @@
-import React from "react";
+// import React, { useState } from "react";
+// import {
+//     BreadcrumbGroup,
+//     ContentLayout,
+//     Header,
+//     SpaceBetween,
+//     Alert,
+//     Tabs,
+//     Container
+// } from "@cloudscape-design/components";
+// import styled from 'styled-components';
+// import useOnFollow from "../../common/hooks/use-on-follow";
+// import BaseAppLayout from "../../components/base-app-layout";
+// import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
+// import ArrowDropUpIcon from '@mui/icons-material/ArrowDropUp';
 
-const FeaturesOfGenie: React.FC = () => {
-  return (
-    <div className="bg-gradient-to-br from-indigo-500 via-purple-500 to-pink-500 min-h-screen text-white p-8 font-sans">
-      <header className="text-center mb-12">
-        <h1 className="text-4xl font-bold underline decoration-pink-300">Welcome to GENIE</h1>
-        <p className="mt-4 text-lg">Your AI-powered assistant for productivity and insights.</p>
-      </header>
+// const OrderedList = styled.div`
+//     margin: 0;
+//     padding: 0;
+// `;
 
-      <section className="mb-12">
-        <h2 className="text-3xl font-semibold mb-4">🔹 Chatbot Features</h2>
-        <ul className="list-disc pl-8 space-y-2">
-          <li>
-            <strong className="text-pink-300">Ask Questions:</strong> Type any question to get answers, just like a search engine.
-          </li>
-          <li>
-            <strong className="text-pink-300">Document Insights:</strong> Upload files and query specific information within them.
-          </li>
-        </ul>
-      </section>
+// const ListItem = styled.div`
+//     padding: 10px 0;
+//     display: flex;
+//     align-items: center;
+//     justify-content: start;
+//     font-weight: bold;
+// `;
 
-      <section className="mb-12">
-        <h2 className="text-3xl font-semibold mb-4">🔹 Bottom Bar Navigation</h2>
-        <ul className="list-disc pl-8 space-y-2">
-          <li>
-            <strong>Smart Model:</strong> Automatically picks the best AI model for your queries, with manual selection options.
-          </li>
-          <li>
-            <strong>Basic Chat:</strong> Use this mode without selecting a workspace for general queries.
-          </li>
-          <li>
-            <strong>Workspaces:</strong> Access files by selecting the workspace where they were uploaded.
-          </li>
-        </ul>
-      </section>
+// const Separator = styled.hr`
+//     background-color: lightgray; 
+//     height: 1.5px;             
+//     border: none;            
+//     margin: 10px 0;
+// `;
 
-      <section className="mb-12">
-        <h2 className="text-3xl font-semibold mb-4">🔹 Uploading Documents</h2>
-        <p className="mb-4">Upload files to query them in the chatbot:</p>
-        <ol className="list-decimal pl-8 space-y-2">
-          <li>Click <strong className="text-pink-300">“Upload Document.”</strong></li>
-          <li>Choose <strong className="text-pink-300">“Upload Files.”</strong></li>
-          <li>Select the file(s) you want to upload.</li>
-          <li>Navigate to the Chatbot and select the related workspace.</li>
-          <li>Ask your questions about the uploaded document(s).</li>
-        </ol>
-        <p className="mt-4">
-          <strong>Workspaces:</strong> Think of them as folders where your uploaded files are stored for easy access.
-        </p>
-      </section>
+// const Details = styled.div`
+//     padding: 5px 29px 13px 29px;
+//     font-size: 15px;
+// `;
 
-      <section className="mb-12">
-        <h2 className="text-3xl font-semibold mb-4">🔹 Multi-Chat Playground</h2>
-        <p className="mb-4">Compare responses from different AI models side by side:</p>
-        <ol className="list-decimal pl-8 space-y-2">
-          <li>Select models for each panel.</li>
-          <li>Choose a workspace or use Basic Chat mode.</li>
-          <li>Enter your question.</li>
-          <li>Compare the results across models.</li>
-          <li>Add more panels with <strong className="text-pink-300">“Add Model.”</strong></li>
-        </ol>
-      </section>
+// const ListDetails = styled.li`
+//     padding: 6px 0px 13px 0px;
+//     font-size: 15px;
+// `;
 
-      <footer className="text-center mt-12">
-        <p className="text-sm">
-          Explore <span className="text-pink-300">video tutorials</span> and <span className="text-pink-300">resources</span> for more tips.
-        </p>
-      </footer>
-    </div>
-  );
-};
+// export default function GenieFeatures() {
+//     const onFollow = useOnFollow();
+//     const [expanded, setExpanded] = useState(false);
 
-export default FeaturesOfGenie;
+//     const toggleExpand = () => {
+//         setExpanded(!expanded);
+//     };
+
+//     return (
+//       <BaseAppLayout
+//           contentType="cards"
+//           breadcrumbs={
+//               <BreadcrumbGroup
+//                   onFollow={onFollow}
+//                   items={[
+//                       { text: "BEACON AI", href: "/*" },
+//                       { text: "Features of GENIE", href: "/features" },
+//                   ]}
+//               />
+//           }
+//           content={
+//               <ContentLayout
+//                   header={<Header variant="h1">Features of GENIE</Header>}
+//               >
+//                   <SpaceBetween size="l">
+//                       {/* Chatbot Section */}
+//                       <Container header={<Header variant="h3">Chatbot</Header>}>
+//                           <OrderedList>
+//                               <ListDetails>
+//                                   Ask General Questions: Similar to queries you might enter into an internet search engine like Google.
+//                               </ListDetails>
+//                               <ListDetails>
+//                                   Query Uploaded Documents: Pose questions about a document or set of documents you’ve uploaded to GENIE.
+//                               </ListDetails>
+//                           </OrderedList>
+//                       </Container>
+
+//                       {/* Bottom Bar Section */}
+//                       <Container header={<Header variant="h3">Bottom Bar</Header>}>
+//                           <p>Smart Model:</p>
+//                           <OrderedList>
+//                               <ListDetails>
+//                                   Automatically selects the best Large Language Model (LLM) from over 10 supported LLMs to answer your questions.
+//                               </ListDetails>
+//                               <ListDetails>No configuration required!</ListDetails>
+//                               <ListDetails>
+//                                   Prefer customization? You can manually select your preferred LLM for answering questions.
+//                               </ListDetails>
+//                           </OrderedList>
+//                           <button
+//                               style={{
+//                                   marginTop: "10px",
+//                                   padding: "10px 15px",
+//                                   backgroundColor: "#4f4db6",
+//                                   color: "white",
+//                                   border: "none",
+//                                   borderRadius: "5px",
+//                                   cursor: "pointer",
+//                               }}
+//                               onClick={toggleExpand}
+//                           >
+//                               {expanded ? "Hide Supported Models" : "Show Supported Models"}
+//                           </button>
+//                           {expanded && (
+//                               <OrderedList>
+//                                   <ListDetails>Claude Series by Anthropic</ListDetails>
+//                                   <ListDetails>Cohere's Command Models</ListDetails>
+//                                   <ListDetails>LLaMA Series by Meta AI</ListDetails>
+//                                   <ListDetails>Mistral Models</ListDetails>
+//                                   <ListDetails>Amazon's Titan Text Models</ListDetails>
+//                               </OrderedList>
+//                           )}
+//                       </Container>
+
+//                       {/* Multi-Chat Playground Section */}
+//                       <Container header={<Header variant="h3">Multi-Chat Playground</Header>}>
+//                           <p>This feature lets you compare outputs from multiple models side by side.</p>
+//                           <OrderedList>
+//                               <ListDetails>Select a model for each panel.</ListDetails>
+//                               <ListDetails>
+//                                   Choose either Basic Chat (No Workspace) or a workspace containing uploaded documents.
+//                               </ListDetails>
+//                               <ListDetails>Enter your question and view outputs from selected models.</ListDetails>
+//                           </OrderedList>
+//                       </Container>
+
+//                       {/* Document Upload Section */}
+//                       <Container header={<Header variant="h3">Document Upload</Header>}>
+//                           <p>Ways to Upload Documents:</p>
+//                           <OrderedList>
+//                               <ListDetails>Upload a Single Document</ListDetails>
+//                               <ListDetails>Upload Multiple Documents</ListDetails>
+//                           </OrderedList>
+//                           <p>What Are Workspaces?</p>
+//                           <Details>
+//                               Workspaces function like folders, organizing all the documents you upload.
+//                               To query a chatbot about specific documents, select the appropriate workspace containing those files.
+//                           </Details>
+//                       </Container>
+//                   </SpaceBetween>
+//               </ContentLayout>
+//           }
+//       />
+//   );
+// }

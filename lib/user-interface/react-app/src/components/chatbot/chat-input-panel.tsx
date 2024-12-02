@@ -94,7 +94,7 @@ export default function ChatInputPanel(props: ChatInputPanelProps) {
   const {needsRefresh, setNeedsRefresh} = useContext(SessionRefreshContext);
   const { transcript, listening, browserSupportsSpeechRecognition } =
     useSpeechRecognition();
-  const [state, setState] = useState<ChatInputState>({
+  const [state, setState] = useState<ChatInputState>({ //how we update the vairable ins tate management 
     taskName: null,
     // have it so the value of the input is either the primer or mt string
     // value:  " ", CHANGE HERE IF YOU MESS IT UP
@@ -102,7 +102,7 @@ export default function ChatInputPanel(props: ChatInputPanelProps) {
     value: " ",
     selectedModel: null,
     selectedModelMetadata: null,
-    selectedWorkspace: workspaceDefaultOptions[0],
+    selectedWorkspace: workspaceDefaultOptions[0], //variable for workspace - update the state of the selected workspace 
     modelsStatus: "loading",
     workspacesStatus: "loading",
   });
@@ -197,7 +197,7 @@ const checkWorkspaceExists = async (name: string): Promise<boolean> => {
      count++;
      uniqueName = `${baseName}-${count}`;
    }
-   return uniqueName;
+   return uniqueName; // set the state to the new workspace created and set that as the workspace within the chat 
  };
  // SARAH doc upload
  const handleUploadDocument = async () => {
@@ -599,13 +599,49 @@ const checkWorkspaceExists = async (name: string): Promise<boolean> => {
     ...OptionsHelper.getSelectOptions(state.workspaces ?? []),
   ];
 
+  const [tooltipVisible, setTooltipVisible] = useState(false);
+
   return (
     <SpaceBetween direction="vertical" size="l">
       <Container>
-        <div className={styles.input_textarea_container}>
+        <div className={styles.input_textarea_container} style={{ position: "relative" }}>
+          {/* SARAH doc upload with Tooltip */}
+          <div
+            style={{ position: "relative", display: "inline-block" }}
+            onMouseEnter={() => setTooltipVisible(true)} // Hover logic on wrapper
+            onMouseLeave={() => setTooltipVisible(false)} // Hide logic on wrapper
+          >
+            <Button
+              onClick={handleUploadDocument}
+              variant="icon"
+              iconName="file" // Valid Cloudscape icon but removing the text
+              ariaLabel="Upload Document"
+            />
+            {/* Tooltip */}
+            {tooltipVisible && (
+              <div
+                style={{
+                  position: "absolute",
+                  bottom: "calc(100% + 8px)", // Position above the button
+                  left: "50%",
+                  transform: "translateX(-50%)",
+                  backgroundColor: "#0950a2", // Blue background
+                  color: "#fff", // White text for contrast
+                  fontSize: "12px",
+                  padding: "6px 12px", // Adjust padding for better appearance
+                  borderRadius: "12px", // Rounded corners
+                  whiteSpace: "nowrap",
+                  zIndex: 10,
+                  boxShadow: "0 2px 4px rgba(0, 0, 0, 0.2)", // Subtle shadow for depth
+                }}
+              >
+                Upload Document
+              </div>
+            )}
+          </div>
           <TextareaAutosize
             className={styles.input_textarea}
-            value={state.value}
+            value={state.value} // Keep the text input functionality
             maxRows={6}
             minRows={1}
             spellCheck={true}
@@ -619,16 +655,27 @@ const checkWorkspaceExists = async (name: string): Promise<boolean> => {
                 handleSendMessage();
               }
             }}
-            placeholder={listening ? "Listening..." : "Send a message"}
+            placeholder="Type a message"
           />
-          <div className={styles.icon_container}>
-            {/* Attachment Icon for Document Upload */}
-            <Button
-              onClick={handleUploadDocument}
-              variant="icon"
-              iconName={"paperclip" as any} // TypeScript workaround if the library allows it
-              ariaLabel="Upload Document"
-            />
+          <div style={{ marginLeft: "8px" }}>
+            {state.selectedModelMetadata?.inputModalities.includes(
+              ChabotInputModality.Image
+            ) &&
+              files.length > 0 &&
+              files.map((file, idx) => (
+                <img
+                  key={idx}
+                  onClick={() => setImageDialogVisible(true)}
+                  src={file.url}
+                  style={{
+                    borderRadius: "4px",
+                    cursor: "pointer",
+                    maxHeight: "30px",
+                    float: "left",
+                    marginRight: "8px",
+                  }}
+                />
+              ))}
             {/* Send Button */}
             <Button
               disabled={
@@ -671,7 +718,7 @@ const checkWorkspaceExists = async (name: string): Promise<boolean> => {
             placeholder="Select a model"
             empty={
               <div>
-                No models available. Please ensure you have access to Amazon
+                No models available. Please make sure you have access to Amazon
                 Bedrock or alternatively deploy a self-hosted model on SageMaker
                 or add API_KEY to Secrets Manager.
               </div>
@@ -737,6 +784,7 @@ const checkWorkspaceExists = async (name: string): Promise<boolean> => {
                 onClick={() => setConfigDialogVisible(true)}
               />
             </div>
+    
             <StatusIndicator
               type={
                 readyState === ReadyState.OPEN
@@ -753,9 +801,8 @@ const checkWorkspaceExists = async (name: string): Promise<boolean> => {
         </div>
       </div>
     </SpaceBetween>
-  );  
-  
-}
+  );
+}  
 
 function getSelectedWorkspaceOption(
   workspaces: Workspace[]

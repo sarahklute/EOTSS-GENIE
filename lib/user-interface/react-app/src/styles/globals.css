@@ -1,83 +1,122 @@
 * {
-    box-sizing: border-box;
-    
-  }
+  box-sizing: border-box;
   
-  html,
-  body {
-    padding: 0;
-    margin: 0;
-    font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
-      Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
-    min-height: 100vh;
-    
-  }
+}
+
+html,
+body {
+  padding: 0;
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
+    Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
+  min-height: 100vh;
   
-  main {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-  }
+}
+
+main {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+h1 {
+  margin: 2em 0;
+  padding: 0 0.5rem;
+  text-align: center;
+  font-size: 3rem;
+}
+
+a {
+  color: #0950a2;
+  text-decoration: none;
+  position: relative;
   
-  h1 {
-    margin: 2em 0;
-    padding: 0 0.5rem;
-    text-align: center;
-    font-size: 3rem;
-  }
-  
-  a {
-    color: #0950a2;
-    text-decoration: none;
-    position: relative;
-    
-  }
-  
-  a:hover {
-    opacity: 0.8;
-    color: #1cf6dd;
-  }
-  
-  p {
-    font-size: 2rem;
-  }
-  
-  /*.task-container {*/
-  /*  padding: 3rem 3rem;*/
-  /*  margin: 2em;*/
-  /*  display: flex;*/
-  /*  flex-flow: column nowrap;*/
-  /*  width: 100%;*/
-  /*}*/
+}
+
+a:hover {
+  opacity: 0.8;
+  color: #1cf6dd;
+}
+
+p {
+  font-size: 2rem;
+}
+
+/*.task-container {*/
+/*  padding: 3rem 3rem;*/
+/*  margin: 2em;*/
+/*  display: flex;*/
+/*  flex-flow: column nowrap;*/
+/*  width: 100%;*/
+/*}*/
 
 .task-container {
-  margin: 0 auto; /* Center the container */
-  display: flex;
-  flex-flow: column nowrap;
-  width: 100%;
-  box-sizing: border-box; /* Ensure padding is included in the element's total width and height */
-  overflow: auto; /* Prevent overflow issues */
+margin: 0 auto; /* Center the container */
+display: flex;
+flex-flow: column nowrap;
+width: 100%;
+box-sizing: border-box; /* Ensure padding is included in the element's total width and height */
+overflow: auto; /* Prevent overflow issues */
+}
+/* 
+.carousel-item {
+padding: 2em 3em;
+color: #272343;
+margin: 1rem;
+border-radius: 20px;
+background-color: #bae8e8;
+box-sizing: border-box;
+box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+} */
+
+.carousel-item {
+width: 373px; /* Match the required width */
+height: 180px; /* Match the required height */
+padding: 1rem; /* Adjust padding for internal content */
+background-color: #bae8e8; /* Blue background */
+box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Subtle shadow for depth */
+display: flex; /* Flex layout */
+flex-direction: column; /* Stack content vertically */
+justify-content: space-between; /* Distribute content evenly */
+align-items: center; /* Center-align content */
+text-align: center; /* Center text */
+transition: transform 0.2s ease-in-out; /* Hover scaling effect */
+overflow: hidden; /* Prevent content overflow */
+box-sizing: border-box; /* Include padding in total dimensions */
 }
 
-  .carousel-item {
-  padding: 2em 3em;
-  color: #272343;
-  margin: 1rem;
-  border-radius: 20px;
-  background-color: #bae8e8;
-  box-sizing: border-box;
-  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+.carousel-item-dark-mode {
+width: 373px; /* Same width as light mode */
+height: 180px; /* Same height as light mode */
+padding: 1rem; /* Adjust padding */
+background-color: #bae8e8; /* Use a darker blue or adjust for dark mode */
+box-shadow: 0 4px 8px rgba(213, 241, 241, 0.3); /* Softer shadow for dark mode */
+display: flex; /* Flex layout */
+flex-direction: column; /* Stack content vertically */
+justify-content: space-between; /* Distribute content evenly */
+align-items: center; /* Center-align content */
+text-align: center; /* Center text */
+transition: transform 0.2s ease-in-out; /* Hover scaling effect */
+overflow: hidden; /* Prevent content overflow */
+box-sizing: border-box; /* Include padding in total dimensions */
 }
 
-  .carousel-item-dark-mode {
-  padding: 2em 3em;
-  color: #272343;
-  margin: 1rem;
-  border-radius: 20px;
-  background-color: #bae8e8;
-  box-sizing: border-box;
-  box-shadow: 0 4px 8px 0 rgba(213, 241, 241, 0.3);
+.carousel-item:hover,
+.carousel-item-dark-mode:hover {
+transform: scale(1.05); /* Slightly enlarge the card on hover */
 }
+
+
+
+/* .carousel-item-dark-mode {
+padding: 2em 3em;
+color: #272343;
+margin: 1rem;
+border-radius: 20px;
+background-color: #bae8e8;
+box-sizing: border-box;
+box-shadow: 0 4px 8px 0 rgba(213, 241, 241, 0.3);
+} */
 
 
 /*  .carousel-container {*/

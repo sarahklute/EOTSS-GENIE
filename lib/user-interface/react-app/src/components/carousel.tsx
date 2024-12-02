@@ -14,7 +14,7 @@ const CarouselNext = ({ theme }: CarouselNextProps) => {
     const taskCards = [
         {
             name: "summarize",
-            cardTitle: "Summarize!",
+            cardTitle: "Summarize",
             taskDescription: "Summarize meeting notes, articles, memos.",
             instructions: "Paste your text below",
             url: `/chatbot/task-playground/${uuidv4()}/summarize`,
@@ -99,53 +99,29 @@ const CarouselNext = ({ theme }: CarouselNextProps) => {
 
     return (
         <div>
-
             {/* Flexbox layout for cards */}
             <div
                 style={{
-                    display: "flex", // Flexbox layout
-                    flexWrap: "wrap", // Allow wrapping to the next row
-                    gap: "0.5rem", // Add some spacing between cards
-                    padding: "1rem", // Padding around the layout
-                    width: "100%", // Ensure container stretches fully
-                    //boxSizing: "border-box", // Include padding in width calculation
+                    display: "flex",
+                    flexWrap: "wrap", // Allow cards to wrap onto the next row
+                    justifyContent: "center", // Center-align all cards
+                    //gap: "1rem", // Add space between the cards
+                    //padding: "2rem", // Add padding around the container
                 }}
             >
                 {visibleCards.map((task) => (
-                    <div
+                    <TaskCard
                         key={task.name}
-                        style={{
-                            flex: "1 1 calc(30% - 1rem)", // Reduced to 30% to avoid wrapping
-                            maxWidth: "calc(30% - 1rem)", // Ensure it doesn't exceed 30%
-                            minWidth: "250px", // Ensure a minimum size for cards
-                            height: "auto",
-                            minHeight: "200px", // Minimum height for uniformity
-                            display: "flex",
-                            flexDirection: "column", // Stack content vertically
-                            justifyContent: "space-between", // Space items evenly
-                            backgroundColor: "transparent",
-                            border: "none",
-                            boxShadow: "none",
-                            margin: "0.5rem", // Add spacing around each card
-                            padding: "1rem",
-                            overflow: "hidden",
-                            textOverflow: "ellipsis",
-                        }}
-                    >
-                        {/* TaskCard remains unchanged */}
-                        <TaskCard
-                            name={task.name}
-                            cardTitle={task.cardTitle}
-                            taskDescription={task.taskDescription}
-                            instructions={task.instructions}
-                            url={task.url}
-                            apiPrompt={task.apiPrompt}
-                            theme={theme}
-                        />
-                    </div>
+                        name={task.name}
+                        cardTitle={task.cardTitle}
+                        taskDescription={task.taskDescription}
+                        instructions={task.instructions}
+                        url={task.url}
+                        apiPrompt={task.apiPrompt}
+                        theme={theme}
+                    />
                 ))}
             </div>
-    
             {/* Show More / Show Less Button */}
             <div style={{ textAlign: "center", marginTop: "2rem" }}>
                 <Button onClick={() => setShowAll(!showAll)} variant="primary">
@@ -154,8 +130,6 @@ const CarouselNext = ({ theme }: CarouselNextProps) => {
             </div>
         </div>
     );
-    
-    
 };    
 
 export default CarouselNext;
