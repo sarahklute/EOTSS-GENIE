@@ -32,7 +32,7 @@ jobs:
         uses: aws-actions/configure-aws-credentials@v3
         with:
           role-duration-seconds: 3600
-          role-to-assume: arn:aws:iam::084828559398:role/genie-deployment-role-prod
+          role-to-assume: arn:aws:iam::908027381379:role/eotss-genie-deployment-role
           aws-region: us-east-1
           role-session-name: ${{ github.actor }}
 
