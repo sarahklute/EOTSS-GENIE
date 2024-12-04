@@ -24,13 +24,19 @@ The Smart Model feature enhances AI responses by leveraging advanced algorithms 
 
 ![Smart Model Tutorial](docs/about/assets/smartModel.gif)
 
-### Smart Navigation
+### Tasks
 
-Smart Navigation, or the Task Carousel, offers a pre-filled prompt system to assist users in completing specific tasks, enhancing user experience and productivity. It automates prompt engineering, enabling users to concentrate on tasks without the need to craft detailed prompts.
+The Task section offers a pre-filled prompt system to assist users in completing specific tasks, enhancing user experience and productivity. It automates prompt engineering, enabling users to concentrate on tasks without the need to craft detailed prompts.
+
+(SARAH: ADD HERE)
 
 ### Workspaces
 
 Workspaces function like a file system within the AI GENIE, allowing users to create and manage multiple private workspaces. Each workspace can be configured with different Retrieval-Augmented Generation (RAG) engines, such as Aurora, OpenSearch, and Kendra. Users can upload multiple documents to their workspaces and perform queries using the RAG setup.
+
+Workspaces allow users to upload documents to genie. This can be accessed through the side pannel of genie " Document Upload" or through the Chatbot message input, where there is a button on the left hand side of the input panel. This will automatically create a workspace in Kendra for the user, where they can upload a document and be redirected to the chatbot to begin interaction with the uploaded document.
+
+(SARAH: add a video here)
 
 ### Retrieval-Augmented Generation (RAG)
 
@@ -44,9 +50,10 @@ For more information, visit the [AWS GenAI LLM Chatbot](https://aws-samples.gith
 
 ## Deployment Guide
 
-[Guide link](https://github.com/aschwarzer101/EOTSS-AWS-Secret-Project/blob/main/docs/guide/deploy.md)
+[Guide link](https://github.com/sarahklute/EOTSS-GENIE/blob/main/docs/guide/deploy.md)
 
 ## Developers
 
+- [Sarah Klute](https://www.linkedin.com/in/sarahklute/)
 - [Alayna Schwarzer](https://www.linkedin.com/in/alayna-schwarzer/)
 - [Dhruv Kamalesh Kumar](https://www.linkedin.com/in/dhruvkamaleshkumar)
