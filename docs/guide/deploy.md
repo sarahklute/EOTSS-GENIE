@@ -2,13 +2,62 @@
 
 ## Environment setup
 
-### Deploy with AWS Cloud9
+GitHub Actions have been configured for GENIE within two branches:
 
-We recommend deploying with [AWS Cloud9](https://aws.amazon.com/cloud9/).
-If you'd like to use Cloud9 to deploy the solution, you will need the following before proceeding:
+1. Non-Prod branch: use for testing changes before production
+2. Prod branch: production version of GENIE
 
-- select at least `m5.large` as Instance type.
-- use `Ubuntu Server 22.04 LTS` as the platform.
+### To deploy to non-prod branch:
+
+```shell
+git checkout non-prod
+git add <file changed with relative path>
+git commit -m “message description of changes”
+git push non-prod
+```
+
+### To deploy to prod branch, merge changes from non-prod branch:
+
+Pull changes from non-prod
+
+```shell
+git checkout non-prod
+git pull non-prod
+```
+
+Switch to prod branch to prepare for merge
+
+```shell
+git checkout prod
+git pull prod
+```
+
+Merge non-prod branch into prod (Note: If there are no conflicts, the merge will complete successfully)
+
+```shell
+git merge non-prod
+```
+
+Resolve any merge conflicts:
+
+Open files with conflict markers (<<<<<<<, =======, >>>>>>>) in your editor. Decide on the appropriate changes, accept incoming changes (from non-prod branch)
+
+Mark resolved conflicts:
+
+```shell
+git add <file-with-conflict>
+```
+
+Finalize Merge:
+
+Commit the merge once all conflicts are resolved and changes are staged, push changes to Prod to finalize Prod Deployment
+
+```shell
+git commit -m "Merge non-prod into prod"
+git push
+```
+
+GitHub Actions will automatically deploy prod branch!
 
 ### Deploy with Github Codespaces
 
