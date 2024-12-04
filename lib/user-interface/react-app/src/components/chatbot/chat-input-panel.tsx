@@ -122,6 +122,7 @@ export default function ChatInputPanel(props: ChatInputPanelProps) {
  const [globalError, setGlobalError] = useState<string | undefined>(undefined);
  const [navigatedToWorkspace, setNavigatedToWorkspace] = useState(false); // Track navigation to new workspace
  const [newWorkspace, setNewWorkspace] = useState<Workspace | null>(null); // Track the newly created workspace
+ const [isUploading, setIsUploading] = useState(false); // New state for loading indicator
 
  useEffect(() => {
    if (!appContext) return;
@@ -202,6 +203,7 @@ const checkWorkspaceExists = async (name: string): Promise<boolean> => {
  // SARAH doc upload
  const handleUploadDocument = async () => {
    if (!appContext) return;
+   setIsUploading(true); // Set loading state to true
    const apiClient = new ApiClient(appContext);
    try {
      const username = await Auth.currentAuthenticatedUser().then((user) => user.username);
@@ -239,7 +241,8 @@ const checkWorkspaceExists = async (name: string): Promise<boolean> => {
      setWorkspaces([...workspaces, { id: workspaceId, name: uniqueWorkspaceName, __typename: "Workspace", engine: "", createdAt: new Date().toISOString(), updatedAt: new Date().toISOString() }]);
    } catch (error) {
      console.error('Error creating workspace:', error);
-     // Handle error appropriately, e.g., set a global error state
+   } finally {
+     setIsUploading(false); // Reset loading state
    }
  };
 
@@ -608,14 +611,15 @@ const checkWorkspaceExists = async (name: string): Promise<boolean> => {
           {/* SARAH doc upload with Tooltip */}
           <div
             style={{ position: "relative", display: "inline-block" }}
-            onMouseEnter={() => setTooltipVisible(true)} // Hover logic on wrapper
-            onMouseLeave={() => setTooltipVisible(false)} // Hide logic on wrapper
+            onMouseEnter={() => setTooltipVisible(true)}
+            onMouseLeave={() => setTooltipVisible(false)}
           >
             <Button
               onClick={handleUploadDocument}
               variant="icon"
               iconName="file" // Valid Cloudscape icon but removing the text
               ariaLabel="Upload Document"
+              disabled={isUploading}
             />
             {/* Tooltip */}
             {tooltipVisible && (
@@ -639,6 +643,18 @@ const checkWorkspaceExists = async (name: string): Promise<boolean> => {
               </div>
             )}
           </div>
+          {isUploading && (
+            <Spinner
+              size="small"
+              style={{
+                position: "absolute",
+                top: "50%",
+                left: "50%",
+                transform: "translate(-50%, -50%)",
+                zIndex: 20,
+              }}
+            />
+          )}
           <TextareaAutosize
             className={styles.input_textarea}
             value={state.value} // Keep the text input functionality
