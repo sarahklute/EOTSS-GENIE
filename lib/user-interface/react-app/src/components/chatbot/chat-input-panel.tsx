@@ -616,7 +616,7 @@ const checkWorkspaceExists = async (name: string): Promise<boolean> => {
             onMouseLeave={() => setTooltipVisible(false)} // Hide logic on wrapper
           >
             <div style={{ display: "flex", alignItems: "center" }}>
-            {isUploading && (
+              {isUploading && (
                 <div style={{ marginRight: "8px" }}>
                   <Spinner size="normal" />
                 </div>
@@ -711,6 +711,7 @@ const checkWorkspaceExists = async (name: string): Promise<boolean> => {
                 "Send"
               )}
             </Button>
+          </div>
           </div>
         </div>
       </Container>
