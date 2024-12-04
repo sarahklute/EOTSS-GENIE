@@ -644,8 +644,7 @@ const checkWorkspaceExists = async (name: string): Promise<boolean> => {
             )}
           </div>
           {isUploading && (
-            <Spinner
-              size="small"
+            <div
               style={{
                 position: "absolute",
                 top: "50%",
@@ -653,7 +652,9 @@ const checkWorkspaceExists = async (name: string): Promise<boolean> => {
                 transform: "translate(-50%, -50%)",
                 zIndex: 20,
               }}
-            />
+            >
+              <Spinner size="normal" />
+            </div>
           )}
           <TextareaAutosize
             className={styles.input_textarea}
