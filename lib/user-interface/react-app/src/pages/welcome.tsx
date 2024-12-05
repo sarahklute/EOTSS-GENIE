@@ -43,7 +43,7 @@ export default function Welcome({theme}) {
                     header={
                         <Header
                             variant="h1"
-                            description="Experiment and chat with different models. Compare and contrast their responses for your target uses."
+                            description="Explore GENIE: Your advanced AI-powered assistant."
                             actions={
                                 <RouterButton
                                     iconAlign="right"
@@ -110,9 +110,7 @@ export default function Welcome({theme}) {
                                     type: " ",
                                     href: "/chatbot/playground",
                                     img: "/images/welcome/chatbotWhite.jpg",
-                                    description:
-                                        "Experiment using different models to automate your everyday tasks",
-                                },
+                                    description: "Your interactive AI assistant for asking questions, uploading documents, and enhancing productivity with intelligent insights."                                },
                                 {
                                     name: "Multi-Chat Playground",
                                     external: false,
@@ -120,7 +118,7 @@ export default function Welcome({theme}) {
                                     href: "/chatbot/multichat",
                                     img: "/images/welcome/multichat.png",
                                     description:
-                                        "Compare how models respond to the same prompt",
+                                        "Experiment with and chat across various AI models. Compare and contrast their responses to tailor solutions for your specific needs.",
                                 },
                                 {
                                     name: "Give Feedback",
@@ -135,8 +133,7 @@ export default function Welcome({theme}) {
 
                         <Header
                             variant="h1"
-                            description="Automate daily tasks with AI driven solutions. Optimize how you summarize, draft, and extract information."
-                        >
+                            description="Automate your daily tasks with AI-driven, predefined solutions. Enhance efficiency in summarizing, drafting, and extracting information through guided processes."                        >
                             Tasks
                         </Header>
 
