@@ -25,7 +25,7 @@ export function getConfig(): SystemConfig {
       sagemaker: [],
     },
     rag: {
-      enabled: false,
+      enabled: true,
       engines: {
         aurora: {
           enabled: false,
