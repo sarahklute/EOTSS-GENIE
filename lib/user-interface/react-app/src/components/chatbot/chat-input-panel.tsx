@@ -616,18 +616,19 @@ const checkWorkspaceExists = async (name: string): Promise<boolean> => {
             onMouseLeave={() => setTooltipVisible(false)} // Hide logic on wrapper
           >
             <div style={{ display: "flex", alignItems: "center" }}>
+              <Button
+                onClick={handleUploadDocument}
+                variant="icon"
+                iconName="file"
+                ariaLabel="Upload Document"
+                disabled={isUploading}
+              />
               {isUploading && (
-                <div style={{ marginRight: "8px" }}>
+                <div style={{ marginLeft: "8px" }}>
                   <Spinner size="normal" />
                 </div>
-            )}
-            <Button
-              onClick={handleUploadDocument}
-              variant="icon"
-              iconName="file" // Valid Cloudscape icon but removing the text
-              ariaLabel="Upload Document"
-              disabled={isUploading}
-            />
+              )}
+            </div>
             {/* Tooltip */}
             {tooltipVisible && (
               <div
@@ -711,7 +712,6 @@ const checkWorkspaceExists = async (name: string): Promise<boolean> => {
                 "Send"
               )}
             </Button>
-          </div>
           </div>
         </div>
       </Container>
