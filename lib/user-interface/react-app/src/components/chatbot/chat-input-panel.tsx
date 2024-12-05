@@ -213,7 +213,7 @@ const checkWorkspaceExists = async (name: string): Promise<boolean> => {
      // Create the workspace
      const result = await apiClient.workspaces.createKendraWorkspace({
        name: uniqueWorkspaceName,
-       kendraIndexId: "a53fde4c-3044-4cce-9ac8-f3fc1267b0b6", // SARAH HARDCODED NOW 
+       kendraIndexId: "263de844-5a70-47fe-8bd2-30401ef94c42", // SARAH HARDCODED NOW 
        useAllData: true, 
        createdBy: username,
      });
