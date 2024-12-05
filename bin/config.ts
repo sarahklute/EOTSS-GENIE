@@ -28,10 +28,10 @@ export function getConfig(): SystemConfig {
       enabled: false,
       engines: {
         aurora: {
-          enabled: true,
+          enabled: false,
         },
         opensearch: {
-          enabled: true,
+          enabled: false,
         },
         kendra: {
           enabled: true,
