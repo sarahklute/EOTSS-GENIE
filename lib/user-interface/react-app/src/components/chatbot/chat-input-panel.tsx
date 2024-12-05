@@ -122,7 +122,6 @@ export default function ChatInputPanel(props: ChatInputPanelProps) {
  const [globalError, setGlobalError] = useState<string | undefined>(undefined);
  const [navigatedToWorkspace, setNavigatedToWorkspace] = useState(false); // Track navigation to new workspace
  const [newWorkspace, setNewWorkspace] = useState<Workspace | null>(null); // Track the newly created workspace
- const [isUploading, setIsUploading] = useState(false); // New state for loading indicator
 
  useEffect(() => {
    if (!appContext) return;
@@ -203,7 +202,6 @@ const checkWorkspaceExists = async (name: string): Promise<boolean> => {
  // SARAH doc upload
  const handleUploadDocument = async () => {
    if (!appContext) return;
-   setIsUploading(true); // Set loading state to true
    const apiClient = new ApiClient(appContext);
    try {
      const username = await Auth.currentAuthenticatedUser().then((user) => user.username);
@@ -242,8 +240,6 @@ const checkWorkspaceExists = async (name: string): Promise<boolean> => {
    } catch (error) {
      console.error('Error creating workspace:', error);
      // Handle error appropriately, e.g., set a global error state
-    } finally {
-      setIsUploading(false); // Reset loading state
    }
  };
 
@@ -611,59 +607,41 @@ const checkWorkspaceExists = async (name: string): Promise<boolean> => {
         <div className={styles.input_textarea_container} style={{ position: "relative" }}>
           {/* SARAH doc upload with Tooltip */}
           <div
-            style={{
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "space-between",
-              gap: "8px", // Add space between elements
-              position: "relative",
-            }}
-            onMouseEnter={() => setTooltipVisible(true)}
-            onMouseLeave={() => setTooltipVisible(false)}
+            style={{ position: "relative", display: "inline-block" }}
+            onMouseEnter={() => setTooltipVisible(true)} // Hover logic on wrapper
+            onMouseLeave={() => setTooltipVisible(false)} // Hide logic on wrapper
           >
-            {/* Upload Button with Spinner */}
-            <div style={{ display: "flex", alignItems: "center" }}>
-              <Button
-                onClick={handleUploadDocument}
-                variant="icon"
-                iconName="file"
-                ariaLabel="Upload Document"
-                disabled={isUploading} // Disable button when uploading
-              />
-              {isUploading && (
-                <div style={{ marginLeft: "8px" }}>
-                  <Spinner size="normal" />
-                </div>
-              )}
-            </div>
-  
+            <Button
+              onClick={handleUploadDocument}
+              variant="icon"
+              iconName="file" // Valid Cloudscape icon but removing the text
+              ariaLabel="Upload Document"
+            />
             {/* Tooltip */}
             {tooltipVisible && (
               <div
                 style={{
                   position: "absolute",
-                  bottom: "calc(100% + 8px)",
+                  bottom: "calc(100% + 8px)", // Position above the button
                   left: "50%",
                   transform: "translateX(-50%)",
-                  backgroundColor: "#0972d3",
-                  color: "#fff",
+                  backgroundColor: "#0950a2", // Blue background
+                  color: "#fff", // White text for contrast
                   fontSize: "12px",
-                  padding: "6px 12px",
-                  borderRadius: "12px",
+                  padding: "6px 12px", // Adjust padding for better appearance
+                  borderRadius: "12px", // Rounded corners
                   whiteSpace: "nowrap",
                   zIndex: 10,
-                  boxShadow: "0 2px 4px rgba(0, 0, 0, 0.2)",
+                  boxShadow: "0 2px 4px rgba(0, 0, 0, 0.2)", // Subtle shadow for depth
                 }}
               >
                 Upload Document
               </div>
             )}
           </div>
-  
-          {/* Textarea for typing messages */}
           <TextareaAutosize
             className={styles.input_textarea}
-            value={state.value}
+            value={state.value} // Keep the text input functionality
             maxRows={6}
             minRows={1}
             spellCheck={true}
@@ -679,8 +657,6 @@ const checkWorkspaceExists = async (name: string): Promise<boolean> => {
             }}
             placeholder="Type a message"
           />
-  
-          {/* Send Button */}
           <div style={{ marginLeft: "8px" }}>
             {state.selectedModelMetadata?.inputModalities.includes(
               ChabotInputModality.Image
@@ -700,6 +676,7 @@ const checkWorkspaceExists = async (name: string): Promise<boolean> => {
                   }}
                 />
               ))}
+            {/* Send Button */}
             <Button
               disabled={
                 readyState !== ReadyState.OPEN ||
@@ -726,8 +703,6 @@ const checkWorkspaceExists = async (name: string): Promise<boolean> => {
           </div>
         </div>
       </Container>
-  
-      {/* Input Controls */}
       <div className={styles.input_controls}>
         <div
           className={
@@ -736,7 +711,6 @@ const checkWorkspaceExists = async (name: string): Promise<boolean> => {
               : styles.input_controls_selects_1
           }
         >
-          {/* Model Selection Dropdown */}
           <Select
             disabled={props.running}
             statusType={state.modelsStatus}
@@ -810,7 +784,7 @@ const checkWorkspaceExists = async (name: string): Promise<boolean> => {
                 onClick={() => setConfigDialogVisible(true)}
               />
             </div>
-  
+    
             <StatusIndicator
               type={
                 readyState === ReadyState.OPEN
@@ -827,7 +801,7 @@ const checkWorkspaceExists = async (name: string): Promise<boolean> => {
         </div>
       </div>
     </SpaceBetween>
-  );  
+  );
 }  
 
 function getSelectedWorkspaceOption(
