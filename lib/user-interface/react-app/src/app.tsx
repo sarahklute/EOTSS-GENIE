@@ -24,7 +24,7 @@ import WorkspacePane from "./pages/rag/workspace/workspace";
 import Workspaces from "./pages/rag/workspaces/workspaces";
 import Welcome from "./pages/welcome";
 import TaskPlayground from "./pages/chatbot/playground/task-playground";
-//import Documentation from "./pages/documentation/doc";
+import Documentation from "./pages/chatbot/documentation/doc";
 import "./styles/app.scss";
 import SessionPage from "./pages/chatbot/sessions/sessions";
 import {StorageHelper} from "./common/helpers/storage-helper.ts";
@@ -41,7 +41,7 @@ function App() {
     <div style={{ height: "100%" }}>
       <Router>
         <GlobalHeader setTheme={setTheme} theme={theme}/>
-        <div style={{ height: "56px", backgroundColor: "#000716" }}>&nbsp;</div>
+        <div style={{ height: "56px", backgroundColor: "#d91515" }}>&nbsp;</div>
         <div>
           <Routes>
             <Route index path="/" element={<Welcome theme={theme}/>} />
@@ -54,6 +54,8 @@ function App() {
               <Route path="sessions" element={<SessionPage />} />
               <Route path="multichat" element={<MultiChatPlayground />} />
               <Route path="models" element={<Models />} />
+              <Route path="documentation" element={<Documentation />} />
+              <Route path="doc" element={<Documentation />} />
             </Route>
             <Route path="/rag" element={<Outlet />}>
               <Route path="" element={<Dashboard />} />
